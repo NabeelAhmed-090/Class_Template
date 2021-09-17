@@ -19,7 +19,7 @@ const CustomInput = ({ parentCallBack }) => {
     return (
         <div>
             <InputGroup className="mb-3">
-                <Form.Select defaultValue={type} onChange={handleTypeChange} aria-label="Default select example">
+                <Form.Select id="type" defaultValue={type} onChange={handleTypeChange} aria-label="Default select example">
                     <option>Choose Data Type</option>
                     <option value="int">int</option>
                     <option value="char">char</option>
@@ -28,7 +28,7 @@ const CustomInput = ({ parentCallBack }) => {
                     <option value="int*">int*</option>
                     <option value="char*">char*</option>
                 </Form.Select>
-                <FormControl onChange={handleNameChange} aria-label="Text input with dropdown button" />
+                <FormControl id="name" onChange={handleNameChange} aria-label="Text input with dropdown button" />
             </InputGroup>
         </div>
     )

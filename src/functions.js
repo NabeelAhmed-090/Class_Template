@@ -2,12 +2,22 @@ const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+
+const contructor_creator = (className, dataMembers) => {
+    var mainString =
+        `${capitalizeFirstLetter(className)}(){
+            
+
+    }`
+    return mainString
+}
+
 const getter_creator = (type, data_member) => {
-    var a =
+    var mainString =
         `  ${type} get${capitalizeFirstLetter(data_member)}(){
               return ${data_member}
       }`
-    return a
+    return mainString
 }
 
 const setter_creator_pointers = (type, data_member) => {
@@ -47,6 +57,7 @@ export const classCreator = (classname, dataMembers) => {
         }).join("\n        ")
         }
 public:
+    ${contructor_creator(classname, dataMembers)}
     ${dataMembers.map((x) => {
             var type = x.split(" ")
             { return getter_creator(type[0], type[1]) }
