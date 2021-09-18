@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { classCreator } from './functions'
-import { Button, InputGroup, FormControl, Container, Row, Col } from 'react-bootstrap'
+import { Button, InputGroup, FormControl, Form, Container, Row, Col } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CustomInput from './components/CustomInput';
 import './App.css'
@@ -22,6 +22,20 @@ function App() {
     selection.removeAllRanges();
     selection.addRange(range);
     document.execCommand('copy')
+  }
+
+  const handleOnChange = (event) => {
+    var removed = event.target.value
+    var tempArray = datamembers.filter(x => {
+      if (x !== removed) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    })
+    setDataMembers(tempArray)
+    document.getElementById("remove").value = "default"
   }
 
   return (
@@ -59,7 +73,8 @@ function App() {
           </Col>
         </ Row>
         <Row style={errorDivStyle}>
-          <Col md={7}></Col>
+          <Col md={1}></Col>
+          <Col md={4}></Col>
           <Col md={3}>
             {hasError === true ? <Error /> : ""}
           </Col>
@@ -72,17 +87,34 @@ function App() {
               <pre id="output"><b>{classCreator(className, datamembers)}</b></pre>
             </div>
           </Col>
-          <Col md={4}><Button style={ButtonStyle} onClick={copy_text}><i className="far fa-copy"></i></Button></Col>
+          <Col md={2}>
+            <Form.Select defaultValue="default" style={removeStyle} onChange={handleOnChange} id="remove" aria-label="Default select example">
+              <option value="default" disabled={true} hidden={true}>Remove</option>
+              {datamembers.map(x => {
+                return (
+                  <option key={x} value={x}>{x}</option>
+                )
+              })}
+            </Form.Select>
+          </Col>
+          <Col md={2}><Button style={ButtonStyle} onClick={copy_text}><i className="far fa-copy"></i></Button></Col>
         </Row>
       </Container>
     </div >
   );
 }
 
+const removeStyle = {
+  outline: "none",
+  boxShadow: "none",
+  float: "right"
+}
+
 const ButtonStyle = {
   backgroundColor: "#008E97",
   borderColor: "#008E97",
-  boxShadow: "none"
+  boxShadow: "none",
+  float: "right"
 }
 
 const outputDivStyle = {
@@ -95,7 +127,7 @@ const outputRowStyle = {
 }
 
 const errorDivStyle = {
-  marginTop: "10px"
+  marginTop: "0px"
 }
 
 const inputDivStyle = {

@@ -10,7 +10,6 @@ const CustomInput = ({ setDataMembers, datamembers, setHasErrors }) => {
 
     //function to update states and clear the input fields
     const handleOnClick = () => {
-        console.log(type, name)
         if ((typeof (type) !== 'undefined' && typeof (name) !== 'undefined')
             && (type.length !== 0 && name.length !== 0)
             && type !== 'default') {
@@ -37,31 +36,34 @@ const CustomInput = ({ setDataMembers, datamembers, setHasErrors }) => {
     const handleNameChange = (event) => {
         name = event.target.value
     }
-
     return (
         <div>
-            <InputGroup className="mb-3">
-                <Form.Select id="type" style={inputStyles} defaultValue={type} onChange={handleTypeChange} aria-label="Default select example">
-                    <option value="default">Choose Data Type</option>
-                    <option value="int">int</option>
-                    <option value="char">char</option>
-                    <option value="string">string</option>
-                    <option value="bool">bool</option>
-                    <option value="int*">int*</option>
-                    <option value="char*">char*</option>
-                </Form.Select>
-                <FormControl id="name" style={inputStyles} onChange={handleNameChange} aria-label="Text input with dropdown button" />
-            </InputGroup>
-            <Button style={buttonStyle} onClick={handleOnClick}>
-                <i className="fas fa-plus-square"></i>
-            </Button>
+            <div>
+                <InputGroup className="mb-3">
+                    <Form.Select defaultValue="default" id="type" style={inputStyles} onChange={handleTypeChange} aria-label="Default select example">
+                        <option value="default" disabled={true} hidden={true}>Choose Data Type</option>
+                        <option value="int">int</option>
+                        <option value="char">char</option>
+                        <option value="string">string</option>
+                        <option value="bool">bool</option>
+                        <option value="int*">int*</option>
+                        <option value="char*">char*</option>
+                    </Form.Select>
+                    <FormControl id="name" style={inputStyles} onChange={handleNameChange} aria-label="Text input with dropdown button" />
+                </InputGroup>
+            </div>
+            <div>
+                <Button style={buttonStyle} onClick={handleOnClick}>
+                    <i className="fas fa-plus-square"></i>
+                </Button>
+            </div>
         </div>
     )
 }
 
 const inputStyles = {
     outline: "none",
-    boxShadow: "none"
+    boxShadow: "none",
 }
 
 const buttonStyle = {
@@ -70,7 +72,7 @@ const buttonStyle = {
     outline: "none",
     borderColor: "#008E97",
     boxShadow: "none",
-    float: "right"
+    float: "right",
 }
 
 export default CustomInput
