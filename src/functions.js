@@ -56,20 +56,48 @@ const getter_creator = (type, data_member) => {
     return mainString
 }
 
+const defaultConstructor = (data_members, className) => {
+    var mainString = ''
+    mainString +=
+        `${className}(){
+        ${data_members.map((x) => {
+            var type = x.split(" ")
+            if (type[0] === 'int') {
+                return `${type[1]} = 0;`
+            }
+            else if (type[0] === 'char') {
+                return `${type[1]} = '\\0';`
+            }
+            if (type[0] === 'bool') {
+                return `${type[1]} = false;`
+            }
+            if (type[0] === 'string') {
+                return `${type[1]} = "";`
+            }
+            if (type[0] === 'int*' | type[0] === 'char*') {
+                return `${type[1]} = nullptr;`
+            }
+            return ''
+        }).join("\n        ")}
+      }`
+
+    return mainString
+}
+
 const setter_creator_pointers_char = (type, data_member) => {
     var mainString = ''
     var nullChar = ''
     nullChar = type === "char*" ? "NULL" : `${data_member}[length-1]`
     mainString +=
-        `void set${capitalizeFirstLetter(data_member)}(${type} ${data_member},length){
-            if(this.${data_member} == nullptr){
-                delete this.${data_member};
+        `void set${capitalizeFirstLetter(data_member)}(${type} ${data_member},int length = 0){
+            if(this->${data_member} != nullptr){
+                delete this->${data_member};
             }
-            this.${data_member} = new ${type}[length];
-            for(int i=0;i<length;i++){
-                this.${data_member}[i] = ${data_member}[i];
+            this->${data_member} = new char[length+1];
+            for(int i=0;i<length+1;i++){
+                this->${data_member}[i] = ${data_member}[i];
             }
-                this.${data_member}[length-1] = ${nullChar};
+                this->${data_member}[length] = ${nullChar};
         }`
     return mainString
 }
@@ -77,14 +105,12 @@ const setter_creator_pointers_char = (type, data_member) => {
 const setter_creator_pointers_int = (type, data_member) => {
     var mainString = ''
     mainString +=
-        `void set${capitalizeFirstLetter(data_member)}(${type} ${data_member},length){
-            if(this.${data_member} == nullptr){
-                delete this.${data_member};
+        `void set${capitalizeFirstLetter(data_member)}(${type} ${data_member}){
+            if(this->${data_member} != nullptr){
+                delete this->${data_member};
             }
-            this.${data_member} = new ${type}[length];
-            for(int i=0;i<length;i++){
-                this.${data_member}[i] = ${data_member}[i];
-            }
+            this->${data_member} = new int;
+            this->${data_member} = ${data_member};
         }`
     return mainString
 }
@@ -94,7 +120,7 @@ const setter_creator_normal = (type, data_member) => {
     var mainString = ''
     mainString +=
         `void set${capitalizeFirstLetter(data_member)}(${type} ${data_member}){
-            this.${data_member} = ${data_member};
+            this->${data_member} = ${data_member};
         }`
     return mainString
 }
@@ -108,7 +134,8 @@ export const classCreator = (classname, dataMembers) => {
         }).join("\n        ")
         }
 public:
-        ${contructor_creator(classname, dataMembers)}
+      ${defaultConstructor(dataMembers, classname)}
+      ${contructor_creator(classname, dataMembers)}
       ${dataMembers.map((x) => {
             var type = x.split(" ")
             return getter_creator(type[0], type[1])
@@ -130,7 +157,7 @@ public:
         }
 
         ${destructor_creator(classname, dataMembers)}
-}`
+};`
     return mainString
 }
 

@@ -51,8 +51,8 @@ function App() {
             <h5>Encapsulation C++</h5>
           </Col>
         </Row>
+
         <Row style={inputDivStyle}>
-          <Col md={1}></Col>
           <Col md={4}>
             <InputGroup className="mb-3">
               <InputGroup.Text id="inputForClass">class name</InputGroup.Text>
@@ -130,7 +130,8 @@ const errorDivStyle = {
 }
 
 const inputDivStyle = {
-  marginTop: "35px"
+  marginTop: "35px",
+  justifyContent: "center"
 }
 
 const subHeadingStyle = {
