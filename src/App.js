@@ -41,16 +41,14 @@ function App() {
   return (
     <div className="main">
       <Container style={containerStyle}>
-        <Row>
-          <Col md={4}></Col>
-          <Col md={6} style={headingStyle}>
+        <Row style={{ textAlign: "center" }}>
+          <Col md={12} style={headingStyle}>
             <h1>Class Template</h1>
           </Col>
         </Row>
-        <Row>
-          <Col md={4}></Col>
-          <Col md={6} style={subHeadingStyle}>
-            <h5>Encapsulation in C++</h5>
+        <Row style={{ textAlign: "center", marginRight: "2%" }}>
+          <Col md={12} style={subHeadingStyle}>
+            <h5>Encapsulation C++</h5>
           </Col>
         </Row>
         <Row style={inputDivStyle}>
@@ -107,7 +105,8 @@ function App() {
 const removeStyle = {
   outline: "none",
   boxShadow: "none",
-  float: "right"
+  float: "right",
+  marginBottom: "10px"
 }
 
 const ButtonStyle = {
