@@ -59,7 +59,7 @@ const getter_creator = (type, data_member) => {
 const defaultConstructor = (data_members, className) => {
     var mainString = ''
     mainString +=
-        `${className}(){
+        `${capitalizeFirstLetter(className)}(){
         ${data_members.map((x) => {
             var type = x.split(" ")
             if (type[0] === 'int') {

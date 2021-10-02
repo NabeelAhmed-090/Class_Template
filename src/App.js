@@ -51,7 +51,6 @@ function App() {
             <h5>Encapsulation C++</h5>
           </Col>
         </Row>
-
         <Row style={inputDivStyle}>
           <Col md={4}>
             <InputGroup className="mb-3">
@@ -97,9 +96,25 @@ function App() {
           </Col>
           <Col md={2}><Button style={ButtonStyle} onClick={copy_text}><i className="far fa-copy"></i></Button></Col>
         </Row>
+        <hr />
+        <Row>
+          <Col style={aboutUsStyle} md={12}>
+            <pre>
+              <h6>Nabeel Ahmed & Hadiya Kashif</h6>
+              <h6>         FAST-NUCES</h6>
+            </pre>
+          </Col>
+        </Row>
       </Container>
     </div >
   );
+}
+
+const aboutUsStyle = {
+  justifyContent: "center",
+  display: "flex",
+  alignItems: "center",
+  marginBottom: "-3%"
 }
 
 const removeStyle = {
