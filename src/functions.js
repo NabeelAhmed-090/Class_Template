@@ -17,7 +17,7 @@ const destructor_creator = (className, dataMembers) => {
                 `delete ${x.split(' ')[1]};`
             )
         }).join('\n            ')}
-      }`
+        }`
 
     return mainString
 }
@@ -34,7 +34,7 @@ const defaultConstructor = (data_members, className) => {
     var mainString = ''
     mainString +=
         `${capitalizeFirstLetter(className)}(){
-        ${data_members.map((x) => {
+             ${data_members.map((x) => {
             var type = x.split(" ")
             if (type[0] === 'int') {
                 return `${type[1]} = 0;`
@@ -52,8 +52,8 @@ const defaultConstructor = (data_members, className) => {
                 return `${type[1]} = nullptr;`
             }
             return ''
-        }).join("\n        ")}
-      }`
+        }).join("\n             ")}
+        }`
 
     return mainString
 }
@@ -108,7 +108,7 @@ export const classCreator = (classname, dataMembers) => {
         }).join("\n        ")
         }
 public:
-      ${defaultConstructor(dataMembers, classname)}
+        ${defaultConstructor(dataMembers, classname)}
       ${dataMembers.map((x) => {
             var type = x.split(" ")
             return getter_creator(type[0], type[1])
@@ -129,7 +129,7 @@ public:
         }).join("\n        ")
         }
 
-      ${destructor_creator(classname, dataMembers)}
+        ${destructor_creator(classname, dataMembers)}
 };`
     return mainString
 }
