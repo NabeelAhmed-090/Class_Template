@@ -30,21 +30,8 @@ const destructor_creator = (className, dataMembers) => {
                 `delete ${x.split(' ')[1]};`
             )
         }).join('\n            ')}
-        }`
+      }`
 
-    return mainString
-}
-
-const contructor_creator = (className, dataMembers) => {
-    var mainString =
-        `${capitalizeFirstLetter(className)}(${parameters(dataMembers)}){
-            ${dataMembers.map(x => {
-            var type = x.split(' ')
-            return (
-                `set${capitalizeFirstLetter(type[1])}(${type[1]});`
-            )
-        }).join('\n            ')}            
-        }`
     return mainString
 }
 
@@ -135,7 +122,6 @@ export const classCreator = (classname, dataMembers) => {
         }
 public:
       ${defaultConstructor(dataMembers, classname)}
-      ${contructor_creator(classname, dataMembers)}
       ${dataMembers.map((x) => {
             var type = x.split(" ")
             return getter_creator(type[0], type[1])
@@ -156,7 +142,7 @@ public:
         }).join("\n        ")
         }
 
-        ${destructor_creator(classname, dataMembers)}
+      ${destructor_creator(classname, dataMembers)}
 };`
     return mainString
 }
