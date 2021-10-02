@@ -2,19 +2,6 @@ const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-const parameters = (dataMembers) => {
-    var length = dataMembers.length
-    var mainString = ''
-    mainString +=
-        `${dataMembers.map((x, index) => {
-            var retString = index + 1 === length ? `${x}` : `${x}`
-            return (
-                retString
-            )
-        }).join(', ')}`
-    return mainString
-}
-
 const destructor_creator = (className, dataMembers) => {
     var filtered = dataMembers.filter(x => {
         if (x.indexOf("*") !== -1) {
